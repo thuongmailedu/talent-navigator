@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, TrendingUp, GraduationCap, UserCheck, Heart, AlertTriangle } from "lucide-react";
+import { LayoutDashboard, FileBarChart, AlertTriangle, Users } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
@@ -15,13 +15,9 @@ import {
 } from "@/components/ui/sidebar";
 
 const menuItems = [
-  { title: "Tổng quan", url: "/", icon: LayoutDashboard },
-  { title: "Năng lực", url: "/skills", icon: TrendingUp },
-  { title: "Hiệu suất", url: "/performance", icon: Users },
-  { title: "Đào tạo", url: "/learning", icon: GraduationCap },
-  { title: "Kế nhiệm", url: "/succession", icon: UserCheck },
-  { title: "Gắn kết", url: "/engagement", icon: Heart },
-  { title: "Cảnh báo", url: "/alerts", icon: AlertTriangle },
+  { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { title: "Báo cáo & Phân tích", url: "/reports", icon: FileBarChart },
+  { title: "Cảnh báo Rủi ro", url: "/early-warning", icon: AlertTriangle },
 ];
 
 export function AppSidebar() {
@@ -52,7 +48,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Phân tích</SidebarGroupLabel>
+          <SidebarGroupLabel>Quản trị Tài năng</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
