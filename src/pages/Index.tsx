@@ -1,9 +1,8 @@
-import { Users, TrendingUp, Target, AlertTriangle, Award, Heart } from "lucide-react";
+import { Users, TrendingUp, Target, AlertTriangle, Award, Heart, UserCheck } from "lucide-react";
 import { KPICard } from "@/components/dashboard/KPICard";
-import { AlertItem, AlertLevel } from "@/components/dashboard/AlertItem";
-import { NineBoxGrid } from "@/components/dashboard/NineBoxGrid";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, LineChart, Line } from "recharts";
+import { Badge } from "@/components/ui/badge";
+import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, Tooltip, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
 
 // Mock data
 const kpiData = [
@@ -24,36 +23,28 @@ const kpiData = [
     variant: "success" as const,
   },
   {
-    title: "Hoàn thành kế hoạch kế nhiệm",
-    value: "73%",
-    subtitle: "vị trí trọng yếu",
+    title: "Tình trạng kế nhiệm",
+    value: "15/18",
+    subtitle: "vị trí có kế nhiệm",
     trend: { value: 8, isPositive: true },
-    icon: Award,
+    icon: UserCheck,
     variant: "default" as const,
   },
   {
-    title: "Tỷ lệ nghỉ việc nhân tài",
-    value: "4.2%",
-    subtitle: "6 tháng qua",
-    trend: { value: 2, isPositive: false },
-    icon: AlertTriangle,
-    variant: "warning" as const,
-  },
-  {
-    title: "Kỹ năng thiếu hụt",
-    value: "12",
-    subtitle: "cần đào tạo",
-    trend: { value: 3, isPositive: false },
-    icon: TrendingUp,
-    variant: "warning" as const,
-  },
-  {
-    title: "Mức độ gắn kết",
+    title: "Điểm gắn kết",
     value: "8.1/10",
     subtitle: "eNPS score",
     trend: { value: 0.5, isPositive: true },
     icon: Heart,
     variant: "success" as const,
+  },
+  {
+    title: "Tỷ lệ nghỉ việc High Potential",
+    value: "4.2%",
+    subtitle: "6 tháng qua",
+    trend: { value: 2, isPositive: false },
+    icon: AlertTriangle,
+    variant: "warning" as const,
   },
 ];
 
@@ -74,49 +65,20 @@ const performanceTrendData = [
   { month: "T6", score: 84 },
 ];
 
-const talentPoolData = [
-  { dept: "IT", count: 15 },
-  { dept: "Sale", count: 12 },
-  { dept: "Marketing", count: 8 },
-  { dept: "HR", count: 5 },
-  { dept: "Finance", count: 7 },
+const topTalents = [
+  { name: "Nguyễn Văn A", position: "Senior Developer", department: "IT", score: 9.2 },
+  { name: "Trần Thị B", position: "Marketing Manager", department: "Marketing", score: 8.9 },
+  { name: "Lê Văn C", position: "Product Manager", department: "Product", score: 8.7 },
+  { name: "Phạm Thị D", position: "Sales Leader", department: "Sales", score: 8.5 },
+  { name: "Hoàng Văn E", position: "Tech Lead", department: "IT", score: 8.3 },
 ];
 
-const nineBoxEmployees = [
-  { id: "1", name: "Nguyễn Văn A", performance: 3, potential: 3 },
-  { id: "2", name: "Trần Thị B", performance: 3, potential: 3 },
-  { id: "3", name: "Lê Văn C", performance: 2, potential: 3 },
-  { id: "4", name: "Phạm Thị D", performance: 3, potential: 2 },
-  { id: "5", name: "Hoàng Văn E", performance: 2, potential: 2 },
-  { id: "6", name: "Đỗ Thị F", performance: 1, potential: 3 },
-  { id: "7", name: "Vũ Văn G", performance: 1, potential: 2 },
-  { id: "8", name: "Bùi Thị H", performance: 1, potential: 1 },
-  { id: "9", name: "Mai Văn I", performance: 2, potential: 1 },
-  { id: "10", name: "Cao Thị K", performance: 3, potential: 1 },
-];
-
-const alerts = [
-  {
-    name: "Nguyễn Văn An",
-    position: "Senior Developer",
-    department: "IT",
-    level: "high" as AlertLevel,
-    reasons: ["eNPS thấp (3/10)", "KPI giảm 2 kỳ liên tiếp", "Không tham gia đào tạo 6 tháng"],
-  },
-  {
-    name: "Trần Thị Bình",
-    position: "Marketing Manager",
-    department: "Marketing",
-    level: "high" as AlertLevel,
-    reasons: ["Hiệu suất giảm 15%", "Đã được headhunt", "Lương thấp hơn thị trường 20%"],
-  },
-  {
-    name: "Lê Văn Cường",
-    position: "Sales Leader",
-    department: "Sales",
-    level: "medium" as AlertLevel,
-    reasons: ["Không đạt KPI 1 quý", "Yêu cầu chuyển phòng ban"],
-  },
+const criticalPositions = [
+  { position: "Giám đốc Kỹ thuật", department: "IT", successors: 0, status: "critical" },
+  { position: "Giám đốc Marketing", department: "Marketing", successors: 1, status: "warning" },
+  { position: "Trưởng phòng Sản phẩm", department: "Product", successors: 0, status: "critical" },
+  { position: "CFO", department: "Finance", successors: 2, status: "ready" },
+  { position: "Giám đốc Nhân sự", department: "HR", successors: 1, status: "warning" },
 ];
 
 const Index = () => {
@@ -132,7 +94,7 @@ const Index = () => {
         </div>
 
         {/* KPI Cards */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {kpiData.map((kpi, index) => (
             <KPICard key={index} {...kpi} />
           ))}
@@ -143,7 +105,7 @@ const Index = () => {
           {/* Skill Gap Radar */}
           <Card>
             <CardHeader>
-              <CardTitle>Phân tích khoảng trống kỹ năng</CardTitle>
+              <CardTitle>Khoảng trống kỹ năng</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -163,7 +125,7 @@ const Index = () => {
           {/* Performance Trend */}
           <Card>
             <CardHeader>
-              <CardTitle>Xu hướng hiệu suất</CardTitle>
+              <CardTitle>Xu hướng hiệu suất tổng thể</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -177,43 +139,76 @@ const Index = () => {
               </ResponsiveContainer>
             </CardContent>
           </Card>
+        </div>
 
-          {/* Talent Pool by Department */}
+        {/* Top Lists Section */}
+        <div className="grid gap-6 lg:grid-cols-2">
+          {/* Top 5 High Potential */}
           <Card>
             <CardHeader>
-              <CardTitle>Phân bổ Talent Pool theo phòng ban</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <Award className="h-5 w-5 text-primary" />
+                Top 5 Nhân viên Tiềm năng (HiPo)
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={talentPoolData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="dept" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="count" fill="hsl(var(--primary))" />
-                </BarChart>
-              </ResponsiveContainer>
+              <div className="space-y-4">
+                {topTalents.map((talent, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary font-bold">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <p className="font-semibold">{talent.name}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {talent.position} • {talent.department}
+                        </p>
+                      </div>
+                    </div>
+                    <Badge variant="outline" className="bg-success/10 text-success border-success/20">
+                      {talent.score}
+                    </Badge>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
 
-          {/* Alerts Section */}
+          {/* Critical Positions */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <AlertTriangle className="h-5 w-5 text-warning" />
-                Cảnh báo rủi ro (3)
+                Top 5 Vị trí Thiếu Kế nhiệm
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
-              {alerts.map((alert, index) => (
-                <AlertItem key={index} {...alert} />
-              ))}
+            <CardContent>
+              <div className="space-y-4">
+                {criticalPositions.map((pos, index) => {
+                  const statusConfig = {
+                    critical: { color: "bg-destructive/10 text-destructive border-destructive/20", label: "Chưa có" },
+                    warning: { color: "bg-warning/10 text-warning border-warning/20", label: "Thiếu" },
+                    ready: { color: "bg-success/10 text-success border-success/20", label: "Đủ" },
+                  };
+                  const config = statusConfig[pos.status as keyof typeof statusConfig];
+                  
+                  return (
+                    <div key={index} className="flex items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
+                      <div>
+                        <p className="font-semibold">{pos.position}</p>
+                        <p className="text-sm text-muted-foreground">{pos.department}</p>
+                      </div>
+                      <Badge variant="outline" className={config.color}>
+                        {pos.successors} kế nhiệm • {config.label}
+                      </Badge>
+                    </div>
+                  );
+                })}
+              </div>
             </CardContent>
           </Card>
         </div>
-
-        {/* Nine Box Grid */}
-        <NineBoxGrid employees={nineBoxEmployees} />
       </div>
     </div>
   );
