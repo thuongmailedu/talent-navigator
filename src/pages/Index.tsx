@@ -2,6 +2,7 @@ import { Users, TrendingUp, Target, AlertTriangle, Award, Heart, UserCheck } fro
 import { KPICard } from "@/components/dashboard/KPICard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { FilterPanel } from "@/components/filters/FilterPanel";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, Tooltip, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
 
 // Mock data
@@ -86,11 +87,14 @@ const Index = () => {
     <div className="min-h-screen w-full bg-background">
       <div className="container mx-auto p-6 space-y-6">
         {/* Header */}
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard Quản trị Tài năng</h1>
-          <p className="text-muted-foreground">
-            Tổng quan về tình trạng nhân sự và các chỉ số quan trọng
-          </p>
+        <div className="flex items-center justify-between">
+          <div className="space-y-2">
+            <h1 className="text-3xl font-bold tracking-tight">Dashboard Quản trị Tài năng</h1>
+            <p className="text-muted-foreground">
+              Tổng quan về tình trạng nhân sự và các chỉ số quan trọng
+            </p>
+          </div>
+          <FilterPanel />
         </div>
 
         {/* KPI Cards */}

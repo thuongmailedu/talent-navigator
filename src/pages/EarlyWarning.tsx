@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { FilterPanel } from "@/components/filters/FilterPanel";
 import { AlertTriangle, TrendingDown, UserX, Users, MessageSquare, Calendar, GraduationCap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -220,11 +221,17 @@ const EarlyWarning = () => {
     <div className="min-h-screen w-full bg-background">
       <div className="container mx-auto p-6 space-y-6">
         {/* Header */}
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Hệ thống Cảnh báo Sớm</h1>
-          <p className="text-muted-foreground">
-            Phát hiện và xử lý rủi ro nhân sự trước khi trở thành vấn đề nghiêm trọng
-          </p>
+        <div className="flex items-center justify-between">
+          <div className="space-y-2">
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+              <AlertTriangle className="h-8 w-8 text-warning" />
+              Hệ thống Cảnh báo Sớm Rủi ro
+            </h1>
+            <p className="text-muted-foreground">
+              Phát hiện và quản lý rủi ro về nhân tài, hiệu suất và kế nhiệm
+            </p>
+          </div>
+          <FilterPanel />
         </div>
 
         {/* Summary Stats */}

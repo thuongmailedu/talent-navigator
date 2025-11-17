@@ -3,7 +3,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Brain, Target, Users, Download, Filter } from "lucide-react";
+import { FilterPanel } from "@/components/filters/FilterPanel";
+import { Brain, Target, Users, Download } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 // Mock data
@@ -98,16 +99,13 @@ const Reports = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tight">Báo cáo & Phân tích</h1>
+            <h1 className="text-3xl font-bold tracking-tight">Báo cáo & Phân tích Dữ liệu Nhân sự</h1>
             <p className="text-muted-foreground">
               Phân tích chi tiết về năng lực, hiệu suất và kế nhiệm
             </p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline">
-              <Filter className="mr-2 h-4 w-4" />
-              Bộ lọc
-            </Button>
+            <FilterPanel />
             <Button variant="outline">
               <Download className="mr-2 h-4 w-4" />
               Xuất báo cáo
